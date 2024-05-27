@@ -1,0 +1,11 @@
+{
+  "binaries": [
+    {
+      "name": "rock_waypoint",
+      "src_path": "/Users/rockjiang/rust_workspace/rock_waypoint/src/main.rs"
+    }
+  ],
+  "examples": [],
+  "integration_tests": [],
+  "unit_tests": []
+}

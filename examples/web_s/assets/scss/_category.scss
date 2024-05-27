@@ -1,0 +1,121 @@
+/*-------- 11. Category style ---------*/
+
+.category-wrap {
+    position: relative;
+    &:before {
+        background-color: #1d1d26;
+        opacity: .6;
+        pointer-events: none;
+        transition: all .3s ease 0s;
+    }
+    > a {
+        display: block;
+        img {
+            width: 100%;
+        }
+    }
+    .category-content {
+        position: absolute;
+        top: 83px;
+        left: 44px;
+        @media #{$lg-layout} {
+            top: 30px;
+            left: 30px;
+        }
+        @media #{$xs-layout} {
+            top: 30px;
+            left: 30px;
+        }
+        h3 {
+            color: $white;
+            font-size: 30px;
+            margin: 14px 0 0;
+            font-weight: bold;
+            line-height: 35px;
+            letter-spacing: .2px;
+            @media #{$xl-layout} {
+                font-size: 25px;
+            }
+            @media #{$lg-layout} {
+                font-size: 23px;
+                line-height: 30px;
+            }
+            @media #{$md-layout} {
+                font-size: 26px;
+            }
+            @media #{$xs-layout} {
+                font-size: 25px;
+            }
+        }
+    }
+    .category-icon {
+        position: absolute;
+        bottom: 56px;
+        left: 44px;
+        overflow: hidden;
+        @media #{$lg-layout} {
+            bottom: 30px;
+            left: 30px;
+        }
+        @media #{$xs-layout} {
+            bottom: 30px;
+            left: 30px;
+        }
+        a {
+            display: inline-block;
+            img {
+                position: relative;
+                &.category-normal-icon {
+                    opacity: 1;
+                    visibility: visible;
+                    transition: all .3s ease 0s;
+                    left: 0px;
+                }
+                &.category-hover-icon {
+                    opacity: 0;
+                    visibility: hidden;
+                    position: absolute;
+                    top: 0;
+                    left: -20px;
+                    transition: all .4s ease 0s;
+                }
+            }
+        }
+        &:hover a img.category-hover-icon {
+            opacity: 1;
+            visibility: visible;
+            left: 0px;
+        }
+        &:hover a img.category-normal-icon {
+            opacity: 0;
+            visibility: hidden;
+            left: 20px;
+        }
+    }
+    &:hover:before {
+        opacity: .9;
+    }
+    &:hover .category-content img {
+        animation: 500ms ease-in-out 0s normal none 1 running tada;
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

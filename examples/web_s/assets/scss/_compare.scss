@@ -1,0 +1,94 @@
+/*-------- 24. Compare style ---------*/
+
+.compare-table {
+    & .table {
+        & tbody {
+            & tr {
+                & td {
+                    text-align: center;
+                    padding: 20px 20px;
+                    vertical-align: middle;
+                    border-color: #ccc;
+                    &.first-column {
+                        min-width: 175px;
+                        font-size: 15px;
+                        font-weight: 600;
+                        margin: 0;
+                        @media #{$xs-layout} {
+                            min-width: 115px;
+                        }
+                    }
+                    &.product-image-title {
+                        min-width: 310px;
+                        vertical-align: bottom;
+                        text-align: left;
+                        @media #{$xs-layout} {
+                            min-width: 220px;
+                        }
+
+                        & .image {
+                            clear: both;
+                            width: 100%;
+                            margin-bottom: 15px;
+                            display: block;
+                            img {
+                                width: 100%;
+                            }
+                        }
+                        & .category {
+                            float: left;
+                            clear: both;
+                            color: $theme-color;
+                            text-transform: capitalize;
+                            letter-spacing: 0.5px;
+                        }
+                        & .title {
+                            float: left;
+                            clear: both;
+                            font-size: 18px;
+                            line-height: 1.2;
+                            font-weight: 500;
+                            text-transform: capitalize;
+                            margin-top: 5px;
+                            &:hover {
+                                color: $theme-color;
+                            }
+                        }
+                    }
+                    &.pro-desc {
+                        & p {
+                            text-align: left;
+                            margin: 0;
+                        }
+                    }
+                    &.pro-price,
+                    &.pro-color,
+                    &.pro-stock {
+                        font-size: 14px;
+                        font-weight: 400;
+                    }
+                    &.pro-remove {
+                        & button {
+                            border: none;
+                            background-color: transparent;
+                            padding: 0;
+                            cursor: pointer;
+                            &:hover {
+                                color: $theme-color; 
+                            }
+                            & i {
+                                font-size: 20px;
+                            }
+                        }
+                    }
+                    &.pro-ratting {
+                        & i {
+                            color: #e7a415;
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+/*------ end Compare Page Wrapper -----*/

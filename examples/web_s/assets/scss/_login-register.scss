@@ -1,0 +1,124 @@
+/*-------- 21. Login register style ---------*/
+
+.login-register-wrapper {
+    .login-register-tab-list {
+        display: flex;
+        justify-content: center;
+        margin-bottom: 40px;
+        @media #{$xs-layout}{
+            margin-bottom: 20px;
+        }
+        a {
+            position: relative;
+            &::before {
+                background-color: #454545;
+                bottom: 5px;
+                content: "";
+                height: 18px;
+                margin: 0 auto;
+                position: absolute;
+                right: -2px;
+                transition: all 0.4s ease 0s;
+                width: 1px;
+            }
+            h4 {
+                font-size: 25px;
+                font-weight: 700;
+                margin: 0 20px;
+                text-transform: capitalize;
+                transition: all 0.3s ease 0s;
+            }
+            &:last-child::before{
+                display: none;
+            }
+        }
+        a.active h4 {
+            color: $theme-color;
+        }
+    }
+    .login-form-container {
+        background: transparent none repeat scroll 0 0;
+        box-shadow: 0 0 6px rgba(0, 0, 0, 0.1);
+        padding: 80px;
+        text-align: left;
+        @media #{$lg-layout}{
+            padding: 80px 50px;
+        }
+        @media #{$xs-layout}{
+            padding: 40px 15px;
+        }
+        .login-register-form {
+            form {
+                input {
+                    background-color: transparent;
+                    border: 1px solid #ebebeb;
+                    font-size: 14px;
+                    height: 50px;
+                    margin-bottom: 30px;
+                    padding: 0 15px;
+                    color: #010225;
+                }
+                input[type="checkbox"] {
+                    height: 15px;
+                    margin: 0;
+                    position: relative;
+                    top: 2px;
+                    width: 17px;
+                    color: #010225;
+                }
+                .button-box {
+                    .login-toggle-btn {
+                        padding: 10px 0 19px;
+                        label {
+                            font-size: 15px;
+                            font-weight: 400;
+                            @media #{$xs-layout}{
+                                font-size: 14px;
+                            }
+                        }
+                        a {
+                            float: right;
+                            font-size: 15px;
+                            color: #010225;
+                            @media #{$xs-layout}{
+                                font-size: 14px;
+                            }
+                            transition: all 0.3s ease 0s;
+                            &:hover {
+                                color: $theme-color;
+                            }
+                        }
+                    }
+                    button {
+                        background-color: $theme-color;
+                        color: #fff;
+                        border: medium none;
+                        cursor: pointer;
+                        font-size: 13px;
+                        font-weight: 600;
+                        line-height: 1;
+                        padding: 13px 30px 13px;
+                        text-transform: uppercase;
+                        transition: all 0.3s ease 0s;
+                        &:hover {
+                            background-color: #010225;
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+
+.login-register-area {
+    @media #{$xs-layout} {
+        &.pb-100 {
+            padding-bottom: 60px;
+        }
+    }
+}
+
+
+
+

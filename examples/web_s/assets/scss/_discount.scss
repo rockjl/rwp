@@ -1,0 +1,85 @@
+/*-------- 7. Discount style ---------*/
+
+.discount-img {
+    margin: 0px 0 0 70px;
+    position: relative;
+    @media #{$xs-layout} {
+        margin: 0px 0 0 30px;
+    }
+    &:before {
+        background-color: #fff6f6;
+        content: "";
+        height: calc(100% - 30px);
+        left: -70px;
+        position: absolute;
+        top: -40px;
+        width: 100%;
+        z-index: -1;
+        @media #{$xs-layout} {
+            top: -30px;
+            left: -30px;
+        }
+    }
+    a {
+        img {
+            width: 100%;
+        }
+    }
+}
+
+.discount-content {
+    margin-left: 30px;
+    @media #{$md-layout} {
+        margin-left: 0px;
+    }
+    @media #{$xs-layout} {
+        margin-left: 0px;
+        margin-top: 30px;
+    }
+    p {
+        &.bright-color {
+            color: #373737;
+            width: 83%;
+            margin: 0 0 8px;
+            @media #{$xs-layout} {
+                width: 100%;
+            }
+        }
+    }
+    h2 {
+        font-size: 36px;
+        color: #383838;
+        font-weight: bold;
+        margin: 21px 0 34px;
+        line-height: 46px;
+        letter-spacing: .5px;
+        @media #{$md-layout} {
+            margin: 15px 0 20px;
+            line-height: 40px;
+            font-size: 30px;
+        }
+        @media #{$xs-layout} {
+            margin: 15px 0 20px;
+            line-height: 40px;
+            font-size: 26px;
+        }
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

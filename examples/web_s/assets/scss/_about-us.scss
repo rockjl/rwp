@@ -1,0 +1,288 @@
+/*-------- 26. About us style ---------*/
+
+.about-us-content {
+    @media #{$xs-layout} {
+        margin-top: 30px;
+    }
+    h2 {
+        font-size: 35px;
+        font-weight: 500;
+        margin-bottom: 24px;
+        padding-bottom: 28px;
+        position: relative;
+        text-transform: capitalize;
+        line-height: 1;
+        @media #{$lg-layout} {
+            font-size: 32px;
+            margin-bottom: 18px;
+            padding-bottom: 22px;
+        }
+        @media #{$md-layout} {
+            font-size: 25px;
+            margin-bottom: 15px;
+            padding-bottom: 19px;
+        }
+        @media #{$xs-layout} {
+            font-size: 22px;
+            margin-bottom: 15px;
+            padding-bottom: 19px;
+        }
+        span {
+            color: $theme-color;
+        }
+        &::before {
+            background-color: $theme-color;
+            bottom: 0;
+            content: "";
+            height: 2px;
+            left: 0;
+            position: absolute;
+            transition: all 0.4s ease 0s;
+            width: 80px;
+        }
+    }
+    p {
+        &.peragraph-blog {
+            font-size: 16px;
+            font-weight: 600;
+            margin-bottom: 20px;
+            line-height: 28px;
+            @media #{$md-layout} {
+                margin-bottom: 12px;
+            }
+            @media #{$xs-layout} {
+                margin-bottom: 15px;
+                font-weight: 500;
+                font-size: 15px;
+            }
+        }
+        margin: 0;
+        color: #333;
+        font-size: 15px;
+        line-height: 26px;
+    }
+    .about-us-btn {
+        margin-top: 45px;
+        @media #{$lg-layout} {
+            margin-top: 30px;
+        }
+        @media #{$md-layout} {
+            margin-top: 20px;
+        }
+        @media #{$xs-layout} {
+            margin-top: 20px;
+        }
+        a {
+            display: inline-block;
+            background-color: $theme-color;
+            color: #fff;
+            text-transform: uppercase;
+            font-weight: 500;
+            line-height: 1;
+            z-index: 1;
+            padding: 12px 22px;
+            border-radius: 5px;
+        }
+    }
+}
+
+.about-us-img {
+    margin-right: 30px;
+    @media #{$lg-layout} {
+        margin-right: 0px;
+    }
+    @media #{$md-layout} {
+        margin-right: 0px;
+    }
+    @media #{$xs-layout} {
+        margin-right: 0px;
+    }
+    img {
+        width: 100%;
+    }
+}
+
+.sin-testimonial {
+    .client-content {
+        border: 1px solid #e7e9ec;
+        padding: 40px 40px 65px;
+        @media #{$xs-layout} {
+            padding: 40px 22px 65px;
+        }
+        p {
+            color: #333;
+            font-size: 16px;
+            line-height: 30px;
+            margin: 0;
+        }
+    }
+    .client-info {
+        align-items: center;
+        background-color: #fff;
+        display: flex;
+        float: left;
+        margin-left: 32px;
+        margin-top: -44px;
+        padding-right: 18px;
+        position: relative;
+        z-index: 99;
+        @media #{$xs-layout} {
+            margin-left: 10px;
+        }
+        h5 {
+            color: #333;
+            font-size: 16px;
+            font-weight: 600;
+            line-height: 1;
+            margin: 0 22px 0 10px;
+            position: relative;
+            @media #{$xs-layout} {
+                font-size: 14px;
+            }
+            &::before {
+                background-color: #95999e;
+                content: "";
+                height: 1px;
+                position: absolute;
+                right: -15px;
+                top: 8px;
+                width: 7px;
+            }
+        }
+        span {
+            color: #333;
+            font-size: 14px;
+            font-weight: 400;
+        }
+    }
+}
+
+.testimonial-active{
+    &.owl-carousel {
+        .owl-item img {
+            display: inline-block;
+            width: auto;
+        }
+    } 
+}
+
+.team-wrapper {
+    .team-img {
+        overflow: hidden;
+        position: relative;
+        a {
+            img {
+	            width: 100%;
+            }
+        }
+        .team-action {
+            background: #fff none repeat scroll 0 0;
+            left: 0;
+            opacity: 0;
+            visibility: hidden;
+            padding: 10px;
+            position: absolute;
+            right: 0;
+            text-align: center;
+            top: 70%;
+            transform: translateY(-50%);
+            transition: all 0.6s ease 0s;
+            width: 100%;
+            z-index: 5;
+            a {
+                color: #fff;
+                font-size: 15px;
+                transition: all 0.3s ease 0s;
+                margin: 0 7px;
+                width: 30px;
+                height: 30px;
+                line-height: 30px;
+                text-align: center;
+                display: inline-block;
+                border-radius: 100%;
+                &.facebook {
+                    background-color: #3b5998;
+                    border: 1px solid #3b5998;
+                    &:hover {
+                        background-color: transparent;
+                        color: #3b5998;
+                    }
+                }
+                &.twitter {
+                    background-color: #55acee;
+                    border: 1px solid #55acee;
+                    &:hover {
+                        background-color: transparent;
+                        color: #55acee;
+                    }
+                }
+                &.instagram {
+                    background-color: #c32aa3;
+                    border: 1px solid #c32aa3;
+                    &:hover {
+                        background-color: transparent;
+                        color: #c32aa3;
+                    }
+                }
+            }
+        }
+    }
+    .team-content {
+        padding: 20px 10px 21px;
+        box-shadow: 0 3px 5px rgba(85, 85, 85, 0.2);
+        h4 {
+            font-size: 18px;
+            font-weight: 500;
+            margin: 0 0 5px;
+            text-transform: capitalize;
+            color: #333;
+        }
+        span {
+            font-size: 15px;
+            font-style: italic;
+            color: #555;
+        }
+    }
+    &:hover .team-action {
+        opacity: 1;
+        visibility: visible;
+        top: 50%;
+    }
+}
+
+
+.team-area {
+    @media #{$xs-layout} {
+        &.pt-60 {
+            padding-top: 20px;
+        }
+        &.pb-60 {
+            padding-bottom: 20px;
+        }
+    }
+}
+
+.testimonial-area {
+    @media #{$xs-layout} {
+        &.pt-60 {
+            padding-top: 20px;
+        }
+        &.pb-80 {
+            padding-bottom: 40px;
+        }
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+

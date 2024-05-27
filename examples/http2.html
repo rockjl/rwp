@@ -1,0 +1,45 @@
+<html>
+    <head>
+        <script>
+            var ws = new WebSocket("ws://localhost:8082/socket");
+            ws.onopen = function() {
+                console.log("open");
+                const json = JSON.stringify({
+                    type: 'keepalive',
+                    id: 'rockjiang123',
+                });
+                ws.send(json);
+                console.log("clone websocket");
+                ws.close();
+            }
+            ws.onmessage = function(e) {
+                const _data = JSON.parse(e.data);
+                console.log("message", e.data, _data);
+            }
+            ws.onclose = function(e) {
+                console.log("clonse", e);
+            }
+            ws.onerror = function(e) {
+                console.log("error", e);
+            }
+            console.log("send websocket request");
+            // var xhr = new XMLHttpRequest();  
+            // xhr.open('GET', 'http://localhost:8002', true);  
+            // xhr.responseType = 'text';  
+            // xhr.onload = function () {  
+            // if (this.status === 200) {  
+            //     console.log("response", this.response);  
+            // } else {  
+            //     console.error('Error:', this.statusText);  
+            // }  
+            // };  
+            // xhr.onerror = function () {  
+            //     console.error('Error:', this.statusText);  
+            // };  
+            // xhr.send();
+        </script>
+    </head>
+    <body>
+
+    </body>
+</html>

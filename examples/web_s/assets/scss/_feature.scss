@@ -1,0 +1,120 @@
+/*-------- 13. Feature style ---------*/
+
+.feature-border {
+    border: 1px solid #f1f1f1;
+    padding: 63px 0 30px;
+    @media #{$md-layout} {
+        padding: 43px 20px 10px 20px;
+        &.feature-border-about {
+            padding: 43px 20px 10px 20px;
+        }
+    }
+    @media #{$xs-layout} {
+        padding: 43px 20px 10px 20px;
+    }
+}
+
+.feature-wrap {
+    @media #{$md-layout} {
+        text-align: center;
+    }
+    @media #{$xs-layout} {
+        text-align: center;
+    }
+    h5 {
+        font-size: 16px;
+        margin: 18px 0 6px;
+    }
+    p {
+        margin: 0;
+    }
+    &:hover img {
+        animation: 500ms ease-in-out 0s normal none 1 running flip;
+    }
+    &.feature-mrg-1 {
+        margin-left: 148px;
+        @media #{$xx-layout} {
+            margin-left: 44px;
+        }
+        @media #{$xl-layout} {
+            margin-left: 44px;
+        }
+        @media #{$lg-layout} {
+            margin-left: 35px;
+        }
+        @media #{$md-layout} {
+            margin-left: 0px;
+        }
+        @media #{$xs-layout} {
+            margin-left: 0px;
+        }
+    }
+    &.feature-mrg-2 {
+        margin-left: 135px;
+        @media #{$xx-layout} {
+            margin-left: 60px;
+        }
+        @media #{$xl-layout} {
+            margin-left: 60px;
+        }
+        @media #{$lg-layout} {
+            margin-left: 20px;
+        }
+        @media #{$md-layout} {
+            margin-left: 0px;
+        }
+        @media #{$xs-layout} {
+            margin-left: 0px;
+        }
+    }
+    &.feature-mrg-3 {
+        margin-left: 121px;
+        @media #{$xx-layout} {
+            margin-left: 85px;
+        }
+        @media #{$xl-layout} {
+            margin-left: 85px;
+        }
+        @media #{$lg-layout} {
+            margin-left: 20px;
+        }
+        @media #{$md-layout} {
+            margin-left: 0px;
+        }
+        @media #{$xs-layout} {
+            margin-left: 0px;
+        }
+    }
+    &.feature-mrg-4 {
+        margin-left: 110px;
+        @media #{$xl-layout} {
+            margin-left: 95px;
+        }
+        @media #{$lg-layout} {
+            margin-left: 20px;
+        }
+        @media #{$md-layout} {
+            margin-left: 0px;
+        }
+        @media #{$xs-layout} {
+            margin-left: 0px;
+        }
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

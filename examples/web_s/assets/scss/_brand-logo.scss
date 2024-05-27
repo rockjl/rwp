@@ -1,0 +1,101 @@
+/*------- 14. Brand logo style  -------*/
+
+.brand-logo-active {
+    &.owl-carousel {
+        .owl-item {
+            img {
+                display: inline-block;
+                width: auto;
+            }
+        }
+    }
+    .single-brand-logo {
+        text-align: center;
+        img {
+            filter: grayscale(100%);
+            transition: all .5s ease 0s;
+        }
+        &:hover img {
+            filter: grayscale(0%);
+        }
+    }
+}
+
+.brand-logo-border {
+    border: 1px solid #f1f1f1;
+    padding: 60px 50px 60px 100px;
+    @media #{$lg-layout} {
+        padding: 60px 20px 60px 70px;
+    }
+    @media #{$md-layout} {
+        padding: 60px 20px 60px 50px;
+    }
+    @media #{$xs-layout} {
+        padding: 40px 0px 40px 0px;
+    }
+}
+
+.brand-logo-active-2 {
+    &.owl-carousel {
+        .owl-item {
+            img {
+                display: inline-block;
+                width: auto;
+            }
+        }
+    }
+    .single-brand-logo {
+        height: 48px;
+        display: flex;
+        align-items: center;
+        img {
+            opacity: .2;
+        }
+        &:hover img {
+            opacity: 1;
+        }
+    }
+}
+
+.brand-logo-padding {
+    padding: 75px 70px;
+    @media #{$xs-layout} {
+        padding: 40px 15px;
+    }
+}
+
+.brand-logo-area {
+    @media #{$xs-layout} {
+        &.pb-70 {
+            padding-bottom: 50px;
+        }
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

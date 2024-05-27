@@ -1,0 +1,127 @@
+/*------- 22. Contact us style  -------*/
+
+
+.contact-info-wrap , .get-in-touch-wrap {
+    h3 {
+        text-transform: capitalize;
+        font-size: 25px;
+        font-weight: 600;
+        margin: 0 0 30px;
+        @media #{$xs-layout} {
+            margin: 0 0 24px;
+        }
+    }
+    @media #{$xs-layout} {
+        &.mb-60 {
+            margin-bottom: 13px;
+        }
+    }
+}
+
+
+.single-contact-info {
+    background-color: #f7f7f7;
+    padding: 48px 10px 49px;
+    > i {
+        font-size: 36px;
+        color: $theme-color;
+        transition: all .3s ease 0s;
+        display: block;
+    }
+    h4 {
+        font-size: 20px;
+        font-weight: 600;
+        letter-spacing: 0.4px;
+        text-transform: capitalize;
+        margin: 19px 0 10px;
+    }
+    p {
+        letter-spacing: .4px;
+        font-size: 15px;
+        color: #333;
+    }
+    ul {
+        li {
+            border-bottom: 2px solid #fff;
+            letter-spacing: 0.4px;
+            margin-bottom: 30px;
+            padding-bottom: 33px;
+            font-size: 15px;
+            &:last-child {
+                padding-bottom: 0px;
+                margin-bottom: 0px;
+                border-bottom: none;
+            }
+            i {
+                font-size: 18px;
+                margin-right: 7px;
+                color: $theme-color;
+                top: 3px;
+                position: relative;
+                transition: all .3s ease 0s;
+                display: inline-block;
+            }
+            &:hover i {
+                animation: 500ms ease-in-out 0s normal none 1 running tada;
+            }
+        }
+    }
+    &:hover > i {
+        animation: 500ms ease-in-out 0s normal none 1 running tada;
+    }
+}
+
+
+.contact-from {
+    input , textarea {
+        background: #f7f7f7 none repeat scroll 0 0;
+        border: none;
+        color: #000;
+        height: 60px;
+        padding: 2px 20px;
+        margin-bottom: 30px;
+        position: relative;
+        @media #{$xs-layout} {
+            margin-bottom: 20px;
+        }
+    }
+    textarea {
+        height: 200px;
+        padding: 20px 20px;
+    }
+    button {
+        border: none;
+        background-color: transparent;
+        text-transform: capitalize;
+        background-color: $theme-color;
+        color: #fff;
+        padding: 12px 30px;
+        font-size: 15px;
+        letter-spacing: .2px;
+        font-weight: 500;
+        &:hover {
+            background-color: #000;
+        }
+    }
+}
+
+#map {
+    height: 500px;
+    @media #{$md-layout} {
+        height: 400px;
+    }
+    @media #{$xs-layout} {
+        height: 300px;
+    }
+}
+
+
+
+
+
+
+
+
+
+
+

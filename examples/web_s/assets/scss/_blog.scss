@@ -1,0 +1,273 @@
+/*-------- 15. Blog style ---------*/
+
+
+@media #{$xs-layout} {
+    .blog-area {
+        &.pb-50 {
+            padding-bottom: 10px;
+        }
+    }
+}
+
+.blog-wrap {
+    position: relative;
+    .blog-img {
+        position: relative;
+        overflow: hidden;
+        a {
+            img {
+                width: 100%;
+                transition: all .5s ease 0s;
+                transform: scale(1);
+            }
+        }
+        @media #{$xs-layout} {
+            &.mb-20 {
+                margin-bottom: 10px;
+            }
+            &.mb-25 {
+                margin-bottom: 15px;
+            }
+        }
+    }
+    .blog-content {
+        margin: 0 10px 0 67px;
+        @media #{$lg-layout} {
+            margin: 0 10px 0 58px;
+        }
+        @media #{$xs-layout} {
+            margin: 0 10px 0 55px;
+        }
+        @media #{$sm-layout} {
+            margin: 0 10px 0 37px;
+        }
+        h3 {
+            font-size: 18px;
+            color: #373737;
+            line-height: 30px;
+            margin: 0;
+            text-transform: uppercase;
+            font-weight: 500;
+            @media #{$lg-layout} {
+                font-size: 15px;
+            }
+            @media #{$md-layout} {
+                font-size: 16px;
+            }
+            @media #{$xs-layout} {
+                font-size: 15px;
+                line-height: 28px;
+            }
+            @media #{$sm-layout} {
+                font-size: 15px;
+                line-height: 25px;
+            }
+            a {
+                
+            }
+        }
+    }
+    .blog-content-2 {
+        h3 {
+            font-size: 28px;
+            font-weight: bold;
+            color: #333333;
+            margin: 0;
+            a {
+                color: #333;
+                &:hover {
+                    color: $theme-color;
+                }
+            }
+            @media #{$lg-layout} {
+                font-size: 20px;
+            }
+            @media #{$md-layout} {
+                font-size: 22px;
+            }
+            @media #{$xs-layout} {
+                font-size: 20px;
+            }
+        }
+        p {
+            font-size: 16px;
+            color: #333333;
+            line-height: 25px;
+            margin: 10px 0 20px;
+            @media #{$xs-layout} {
+                margin: 10px 0 12px;
+            }
+        }
+        .blog-meta {
+            display: flex;
+            .blog-author {
+                margin-right: 52px;
+                @media #{$lg-layout} {
+                    margin-right: 10px;
+                }
+                @media #{$sm-layout} {
+                    margin-right: 20px;
+                }
+                a {
+                    font-size: 16px;
+                    color: #333;
+                    line-height: 1;
+                    display: inline-block;
+                    position: relative;
+                    padding-left: 60px;
+                    @media #{$lg-layout} {
+                        padding-left: 30px;
+                    }
+                    @media #{$sm-layout} {
+                        padding-left: 30px;
+                    }
+                    &:hover {
+                        color: $theme-color;
+                    }
+                    &:before {
+                        position: absolute;
+                        left: 0;
+                        top: 50%;
+                        transform: translateY(-50%);
+                        content: "";
+                        background-color: $theme-color;
+                        width: 40px;
+                        height: 2px;
+                        @media #{$lg-layout} {
+                            width: 20px;
+                        }
+                        @media #{$sm-layout} {
+                            width: 20px;
+                        }
+                    }
+                }
+            }
+            .blog-like {
+                a {
+                    color: #333333;
+                    font-weight: 300;
+                    i {
+                        font-size: 20px;
+                        color: $theme-color;
+                        position: relative;
+                        top: 2px;
+                    }
+                    &:hover {
+                        color: $theme-color;
+                    }
+                }
+            }
+        }
+    }
+    .blog-border {
+        position: relative;
+        &::before {
+            position: absolute;
+            content: "";
+            left: -38px;
+            top: -48px;
+            height: 60px;
+            width: 8px;
+            background-color: #ff5151;
+            @media #{$sm-layout} {
+                left: -23px;
+            }
+        }
+    }
+    &:hover .blog-img a img {
+        transform: scale(1.1);
+    }
+    @media #{$xs-layout} {
+        &.mb-45 {
+            margin-bottom: 30px;
+        }
+    }
+}
+
+
+.grid-sizer {
+	width: 25%;
+}
+
+.pagination-style {
+    ul {
+        li {
+            display: inline-block;
+            a {
+                font-size: 18px;
+                color: #706c6c;
+                width: 35px;
+                height: 35px;
+                line-height: 37px;
+                border-radius: 100%;
+                background-color: transparent;
+                text-align: center;
+                display: inline-block;
+                @media #{$xs-layout} {
+                    width: 30px;
+                    height: 30px;
+                    line-height: 32px;
+                    font-size: 15px;
+                }
+                &.active , &:hover {
+                    color: #fff;
+                    background-color: $theme-color;
+                }
+                &.next {
+                    width: 48px;
+                    color: #fff;
+                    background-color: $theme-color;
+                    height: 35px;
+                    border-radius: 0 50px 50px 0px;
+                    margin: 0 0px 0 20px;
+                    @media #{$xs-layout} {
+                        width: 35px;
+                        margin: 0 0px 0 5px;
+                        line-height: 35px;
+                    }
+                    &:hover {
+                        background-color: #333;
+                    }
+                }
+                &.prev {
+                    width: 48px;
+                    color: #fff;
+                    background-color: $theme-color;
+                    height: 35px;
+                    border-radius: 50px 0px 0px 50px;
+                    margin: 0 20px 0 0;
+                    @media #{$xs-layout} {
+                        width: 35px;
+                        margin: 0 5px 0 0;
+                        line-height: 35px;
+                    }
+                    &:hover {
+                        background-color: #333;
+                    }
+                }
+            }
+        }
+    }
+    @media #{$xs-layout} {
+        &.mt-40 {
+            margin-top: 0;
+        }
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

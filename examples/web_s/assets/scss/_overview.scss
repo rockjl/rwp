@@ -1,0 +1,110 @@
+/*-------- 9. Overview style ---------*/
+
+.overview-img {
+    margin: 0 -36px 0 70px;
+    @media #{$xl-layout} {
+        margin: 0 0px 0 70px;
+    }
+    @media #{$lg-layout} {
+        margin: 0 0px 0 60px;
+    }
+    @media #{$md-layout} {
+        margin: 0 0px 0 0px;
+    }
+    @media #{$xs-layout} {
+        margin: 0 0px 0 0px;
+    }
+    img {
+        width: 100%;
+    }
+}
+.overview-content {
+    padding-left: 70px;
+    margin-top: -63px;
+    @media #{$lg-layout} {
+        padding-left: 0px;
+        margin-top: -63px;
+    }
+    @media #{$md-layout} {
+        padding-left: 0px;
+        margin-top: -43px;
+    }
+    @media #{$xs-layout} {
+        padding-left: 0px;
+        margin-top: 20px;
+        margin-bottom: 50px;
+    }
+    h2 {
+        color: #292323;
+        font-size: 50px;
+        font-weight: bold;
+        line-height: 55px;
+        margin: 0;
+        text-transform: uppercase;
+        @media #{$xl-layout} {
+            font-size: 40px;
+            line-height: 50px;
+        }
+        @media #{$lg-layout} {
+            font-size: 38px;
+            line-height: 47px;
+        }
+        @media #{$md-layout} {
+            font-size: 30px;
+            line-height: 40px;
+        }
+        @media #{$xs-layout} {
+            font-size: 25px;
+            line-height: 35px;
+        }
+    }
+    p {
+        font-size: 16px;
+        color: #383838;
+        line-height: 26px;
+        width: 80%;
+        margin: 23px 0 31px;
+        @media #{$lg-layout} {
+            margin: 13px 0 21px;
+        }
+        @media #{$md-layout} {
+            width: 100%;
+            margin: 15px 0 21px;
+        }
+        @media #{$xs-layout} {
+            width: 100%;
+        }
+    }
+    .overview-video {
+        display: inline-block;
+        a {
+            display: flex;
+            align-items: center;
+            font-size: 16px;
+            color: #010211;
+            letter-spacing: .2px;
+            i {
+                font-size: 36px;
+                color: $theme-color;
+                margin-right: 8px;
+            }
+            &:hover {
+                color: $theme-color;
+            }
+        }
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+

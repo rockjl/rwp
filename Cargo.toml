@@ -1,0 +1,101 @@
+[package]
+name = "rock_waypoint"
+version = "0.1.0"
+edition = "2021"
+authors = [ "rockjiang" ]
+license = "MPL 2.0"
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[profile.dev]
+opt-level = 0
+debug = true
+split-debuginfo = "packed"
+[profile.release]
+opt-level = 3
+debug = false
+split-debuginfo = "packed"
+
+[dependencies]
+# run tools
+# monoio = { version = "0.2.0", features = ["async-cancel", "sync", "bytes", "legacy", "macros", "utils", "tokio-compat"]}
+tokio = { version = "1.37.0", features = ["full"] }
+tokio-rustls = { version = "0.26.0", features = ["logging", "tls12"] }
+tokio-tungstenite = { version = "0.21.0" }
+rustls-pemfile = { version = "2.1.2"}
+hyper = { version = "1.2.0", features = ["full"] }
+hyper-tls = { version = "0.6.0", features = ["alpn", "vendored"] }
+hyper-util = { version = "0.1.3", features = ["full"] }
+http-body-util = { version = "0.1.1" }
+http = { version = "1.1.0" }
+webpki-roots = { version = "0.26.1" }
+rustls-pki-types = { version = "1.4.1" }
+core_affinity ={ version = "0.8.1" }
+
+# cli args
+structopt ={ version = "0.3.26" }
+
+# log
+log = { version = "0.4.20" }
+env_logger = { version = "0.11.0" }
+
+# Utils
+chrono = { version = "0.4.31", features = ["unstable-locales"] }
+pin-project-lite = { version = "0.2.13"}
+futures-util = { version = "0.3.29" }
+futures = { version = "0.3.29" }
+regex = { version = "1.10.3" }
+derive_more = { version = "0.99.17" }
+# lock_api = { version = "0.4.11"}
+serde = { version = "1.0.201", features = ["derive"] }
+serde_json = { version = "*" }
+config = { version = "0.14.0" }
+
+rand = { version = "*" }
+# parking_lot = { version = "*" }
+# signal-hook = { version = "*", features = ["iterator", "extended-siginfo"]}
+mime_guess = { version = "2.0.4" }
+uuid = { version = "*", features = ["v4","v6","v7"]}
+package_info = { version = "*" }
+package_info_derive = { version = "*" }
+bytes = "1.5.0"
+nonzero_ext = "0.3.0"
+# ratelimiter
+governor = { version = "0.6.3" }
+dashmap = { version = "5.5.3" }
+
+# redis
+redis = { version = "0.25.0", features = ["tokio-comp", "json", "cluster"] }
+deadpool-redis = "0.15.0"
+
+jemallocator = "0.5.4"
+# jemalloc-sys = "0.5.4+5.3.0-patched"
+# jemalloc-ctl = "0.5.4"
+
+#cross compilation
+# openssl = { version = "0.10.64" }
+# aws-lc-rs = { version = "1.7.2"}
+aws-lc-rs = { version = "1.7.2", features = ["bindgen"]}
+# nasm = "0.0.1"
+
+# test
+bencher = "0.1.5"
+
+[dev-dependencies]
+rlua = "0.20.0"
+mlua = { version = "0.9.6", features = ["macros"] }
+criterion ={ version = "*" }
+
+
+[target.x86_64-unknown-linux-musl] 
+linker = "x86_64-linux-musl-gcc"
+[target.x86_64-unknown-linux-gnu]
+linker = "x86_64-unknown-linux-gnu-gcc"
+[target.x86_64-pc-windows-gnu]
+linker = "x86_64-w64-mingw32-gcc"
+[target.x86_64-apple-darwin]
+linker = "x86_64-apple-darwin"
+
+[[bench]]
+name = "test_main_framework"
+harness = false

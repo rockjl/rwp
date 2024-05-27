@@ -1,0 +1,3 @@
+[build]
+rustflags=["--cfg", "rock_unstable"]
+# rustflags=["--cfg", "rock_stable"]
