@@ -15,6 +15,15 @@ use self::{parser::{Format, Parser}, model::ConfigModel};
 
 pub(crate) fn parse_file(file_path: &str) -> RResult<ConfigModel> {
     let path = Path::new(file_path);
+    let open_result = File::open(&path);
+    match open_result {
+        Ok(f) => {
+            log::info!("config file: {:#?}", file_path);
+        }
+        Err(e) => {
+            log::error!("config file not found:{:#?}", e);
+        }
+    }
     // let file_name = path.file_name().and_then(OsStr::to_str).unwrap();
     let file_stem = path.file_stem().and_then(OsStr::to_str).unwrap();
     let file_ext = path.extension().and_then(OsStr::to_str).unwrap();
