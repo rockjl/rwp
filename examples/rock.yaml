@@ -14,24 +14,24 @@ service:
         ssl_key: ca/server.key.pem #www.rgateway.com.key #ca/server.key.pem
     tcp:
       - address: "0.0.0.0:8182"
-  multi_thread:                     #如果multi_thread与current_thread同时存在，默认会启用multi_thread
-    event_interval: 61              # 每一个工作内核可以多少个循环周期到达的时候，需要park。每个工作内核在循环周期之内会在本地任务池检查一下，也会在窃取任务池检查一下
-    thread_name: gateway_thread_    # 线程名字，可以手动指定
-    thread_stack_size: 81920         # 阻塞县城的堆栈大小
-    global_queue_interval: 128     # 工作内核直接从全局队列拿取任务
-    max_blocking_threads: 512       # 默认512，可以足赛的最大线程数，真是的可以阻塞的最大线程数是max_blocking_threads + core_threads
-    nevents: 1024                   # 默认1024，最底层mio的事件数
-    core_threads: 8                 # 如果不写，则是当前系统cpu核心数
+  multi_thread:                     
+    event_interval: 61              
+    thread_name: gateway_thread_    
+    thread_stack_size: 81920         
+    global_queue_interval: 128     
+    max_blocking_threads: 512       
+    nevents: 1024                   
+    core_threads: 8                 
     bind_cpu: all
   current_thread:
-    event_interval: 61              #工作内核何时去yield
-    thread_name: gateway_thread_    #线程名字，可以手动指定
-    thread_stack_size: 81920         #阻塞县城的堆栈大小
-    global_queue_interval: 128     #工作内核检查并获取全局队列中任务并执行的频率
-    max_blocking_threads: 512       #默认512，可以足赛的最大线程数，真是的可以阻塞的最大线程数是max_blocking_threads + core_threads
-    nevents: 1024                   #默认1024，最底层mio的事件数
-    core_threads: 8                 #如果不写，则是当前系统cpu核心数 
-    bind_cpu: 4                     #若超过cpu核心数，将会报错。
+    event_interval: 61              
+    thread_name: gateway_thread_    
+    thread_stack_size: 81920         
+    global_queue_interval: 128     
+    max_blocking_threads: 512       
+    nevents: 1024                   
+    core_threads: 8                 
+    bind_cpu: 4                    
   cache:
     memory: # memory
       clear_time_interval: 10min
@@ -46,21 +46,17 @@ hosts:
     error: test1
     servers:
       - open.qingting.fm:80 timeout=20s weight=3 max_fails_durn=5min max_fails=10 fail_timeout=9s
-      # - www.html5china.com:80 timeout=20s weight=3 max_fails_durn=5min max_fails=10 fail_timeout=9s
-      # - restapi.amap.com:80 timeout=20s weight=3 max_fails_durn=5min max_fails=10 fail_timeout=9s
-      # - www.kuaidi100.com:80 timeout=20s weight=3 max_fails_durn=5min max_fails=10 fail_timeout=9s
   httpsbin:
     type: round_robin
     error: test1
     servers:
-      # - www.baidu.com:443
       - restapi.amap.com:443 timeout=20s weight=3 max_fails_durn=5min max_fails=10 fail_timeout=9s
   tcpbin:
     type: ip_round_robin  # least_connection  random  round_robin
     servers:
       - 110.242.68.247:80 # 110.242.68.247:80
 
-pipes:              # 每一个pipeline拥有自己的memory_cache。
+pipes:              
   http_pipe:
     - black_white_list:
         black_list:
@@ -75,8 +71,8 @@ pipes:              # 每一个pipeline拥有自己的memory_cache。
     - ratelimiter:
         type: service # service,route
     - memory_cache_get:
-        hit: 3      #命中次数达到或者超过这个数字，缓存就会自动删除
-        expire: 3min  #缓存命中以后，重新设置缓存过期时间
+        hit: 3      
+        expire: 3min  
         back: true
     - header_request:
         add:
@@ -92,13 +88,8 @@ pipes:              # 每一个pipeline拥有自己的memory_cache。
           - Access-Control-Allow-Headers: 'origin, content-type, accept'
           - Access-Control-Allow-Methods: 'GET, POST, PUT, DELETE'
     - memory_cache_set: 
-        hit: 0      #初始 命中数量
-        expire: 3min # 首次超时时间
-                    # (年y,月m,周w,天d,小时h,分min,秒s,毫秒ms,微秒us,纳秒ns,皮秒ps) 
-                    # 每周按照7天计算。
-                    # 每月按照30天计算。
-                    # 每年按照365天计算。
-                    # ps允许设置但是除非大于1000,否则会按照0NS计算。多出来的也会抹零。系统最小单位ns
+        hit: 0      
+        expire: 3min 
     - return: rwp
   tcp_pipe:
     - dispatche: rwp
@@ -142,7 +133,7 @@ routes:
   tcp_test:
     protocol: tcp
     priority: 3
-    in_timeout: 5000ms  # 目前只针对TCP协议有效 
+    in_timeout: 5000ms  
     client_buf_size: 2048
     server_buf_size: 128
     in:
