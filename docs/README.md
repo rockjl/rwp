@@ -565,7 +565,7 @@ hsc_xxx:  # which kind of http status code content to return.
 
 ### Circuit breaker configuration-generated understanding errors.
 
-![avatar](gateway_error.drawio.png)
+![avatar](../gateway_error.drawio.png)
 
 The host_point circuit breaker configuration and the error_handling_plan belong to two dimensions of settings.
 
