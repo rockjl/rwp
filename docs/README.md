@@ -9,7 +9,7 @@ Supports multiple plug-ins, plug-and-play configuration, and the plug-ins can be
 And a variety of load balancing strategies have been added for the host address.
 
 **In RockWaypoint, there are the concepts of route and pipe_line. Multiple routes can be created in RockWaypoint. Multiple pipe_lines can also be created. There is a many-to-one relationship between route and pipe_line**
-**![avatar](../readme.drawio.png)**
+**![avatar](readme.drawio.png)**
 
 - **The entry configuration of RockWaypoint is in service.interfaces, and here it supports multiple protocols such as http, https, and tcp.**
 - **After the data enters into RockWaypoint, which route to take is configured in route.xx.in.pattern. Through regular expressions, matching the entered path determines which route configuration the current request takes.**
@@ -565,7 +565,7 @@ hsc_xxx:  # which kind of http status code content to return.
 
 ### Circuit breaker configuration-generated understanding errors.
 
-![avatar](../gateway_error.drawio.png)
+![avatar](gateway_error.drawio.png)
 
 The host_point circuit breaker configuration and the error_handling_plan belong to two dimensions of settings.
 
