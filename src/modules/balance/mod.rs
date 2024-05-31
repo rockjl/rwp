@@ -55,13 +55,13 @@ impl LoadBalanceProfile {
                  */
                 h.cur_weight = h.cur_weight + 1;
                 if h.cur_weight % weight == 0 {
-                    self.host_index = self.host_index + 1;
+                    self.host_index = self.host_index.wrapping_add(1);
                     return Ok((h.host.clone(), h.port.clone(), h.timeout, index, ctx));
                 } else {
                     return Ok((h.host.clone(), h.port.clone(), h.timeout, index, ctx));
                 }
             } else {    //if weight is not set, increase the host_index and then take the current value.
-                self.host_index = self.host_index + 1;
+                self.host_index = self.host_index.wrapping_add(1);
                 return Ok((h.host.clone(), h.port.clone(), h.timeout, index, ctx));
             }
         } else {
