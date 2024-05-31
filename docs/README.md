@@ -7,6 +7,7 @@ Supports multiple protocols: TCP, HTTP, and HTTPS.
 Supports multiple plug-ins, plug-and-play configuration, and the plug-ins can be combined freely and configured randomly.
 （Ratelimiter, Circuit breaking, Black and white lists...Caching, etc.）
 And a variety of load balancing strategies have been added for the host address.
+Support multiple configuration file formats: [yaml](rock.yaml), [ron](rock.ron), [toml](rock.toml), [json](rock.json).(These four configuration methods express the same meaning.)
 
 **In RockWaypoint, there are the concepts of route and pipe_line. Multiple routes can be created in RockWaypoint. Multiple pipe_lines can also be created. There is a many-to-one relationship between route and pipe_line**
 **![avatar](readme.drawio.png)**
@@ -665,4 +666,6 @@ When the pipe_line is in the process of execution, if any of the pipe_modules su
       port: 6379
       pwd: 123456
 ```
+
+
 
