@@ -21,7 +21,7 @@ impl PipeModule for ReturnModule {
         ModuleType::Return
     }
     
-    async fn execute(&self, mut ctx: crate::context::GatewayContext, pipe_data: &super::PipeData) -> RResult<crate::context::GatewayContext>  {
+    async fn execute(&self, ctx: &mut crate::context::GatewayContext, pipe_data: &super::PipeData) -> RResult<()>  {
         if let PipeData::ReturnModuleData { profile } = pipe_data {
             if let ContextType::HttpContext(http_context) = &mut ctx.context_type {
                 let mut response = Response::new(Full::new(http_context.response_context.body.clone()));
@@ -31,7 +31,7 @@ impl PipeModule for ReturnModule {
                 // println!("return::response:{:#?}", response);
                 http_context.return_context.response = Some(response);
             }
-            return Ok(ctx);
+            return Ok(());
         }
         unreachable!()
     }

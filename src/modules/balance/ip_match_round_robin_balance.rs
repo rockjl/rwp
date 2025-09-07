@@ -17,7 +17,7 @@ impl PipeModule for IpRoundRobinBalancer {
         ModuleType::IpMatchRoundRobinLB
     }
     
-    async fn execute(&self, mut ctx: GatewayContext, pipe_data: &crate::modules::PipeData) -> RResult<GatewayContext>  {
+    async fn execute(&self, ctx: &mut GatewayContext, pipe_data: &crate::modules::PipeData) -> RResult<()>  {
         if let PipeData::IpRoundRobinBalancerData { profile } = pipe_data {
             let ip = ctx.remote_addr.ip().to_string();
             let profile_read_lock = profile.read().await;
@@ -31,7 +31,7 @@ impl PipeModule for IpRoundRobinBalancer {
                     ctx.redirect_context.timeout = host.timeout;
                     drop(hosts_read_lock);
                     drop(profile_read_lock);
-                    return Ok(ctx);
+                    return Ok(());
                 } else { // Due to the possibility of removing host_point from hosts in the fail_out_event, it is necessary to add a check here.
                     drop(hosts_read_lock);
                     drop(profile_read_lock);
@@ -41,11 +41,11 @@ impl PipeModule for IpRoundRobinBalancer {
                 }
             }
             let mut profile_write_lock = profile.write().await;
-            let (host, port, timeout, prev_index, mut ctx) = profile_write_lock.take_host(ctx).await?;
+            let (host, port, timeout, prev_index) = profile_write_lock.take_host(ctx).await?;
             if port.as_ref() == &0 && prev_index == 0 { // If no available host is found, return directly.
                 ctx.redirect_context.host = None;
                 ctx.redirect_context.port = None;
-                return Ok(ctx);
+                return Ok(());
             }
             ctx.redirect_context.host = Some(host);
             ctx.redirect_context.port = Some(port);
@@ -60,7 +60,7 @@ impl PipeModule for IpRoundRobinBalancer {
             let host_index = profile_write_lock.host_index;
             profile_write_lock.ip_matchs.insert(ip, host_index);
             drop(profile_write_lock);
-            return Ok(ctx);
+            return Ok(());
         }
         unreachable!()
     }

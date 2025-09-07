@@ -16,7 +16,7 @@ impl PipeModule for UpgradeInsecureRequests {
         ModuleType::UpgradeInsecureRequest
     }
     
-    async fn execute(&self, mut ctx: crate::context::GatewayContext, pipe_data: &crate::modules::PipeData) -> RResult<crate::context::GatewayContext>  {
+    async fn execute(&self, ctx: &mut crate::context::GatewayContext, pipe_data: &crate::modules::PipeData) -> RResult<()>  {
         if let PipeData::UpgradeInsecureRequestsData { profile } = pipe_data {
             if let ContextType::HttpContext(http_context) = &mut ctx.context_type {
                 if http_context.request_context.headers.contains_key(header::UPGRADE_INSECURE_REQUESTS) {
@@ -39,7 +39,7 @@ impl PipeModule for UpgradeInsecureRequests {
                                     Some(ref host) => {
                                         host.clone()
                                     },
-                                    None => { return Ok(ctx); }
+                                    None => { return Ok(()); }
                                 };
                                 let port = addr.port();
                                 let uri_path = http_context.request_context.uri.path();
@@ -53,7 +53,7 @@ impl PipeModule for UpgradeInsecureRequests {
                     }
                 }
             }
-            return Ok(ctx);
+            return Ok(());
         }
         unreachable!()
     }

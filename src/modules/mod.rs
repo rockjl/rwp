@@ -105,7 +105,7 @@ macro_rules! module_initial{
                 }
             }
             #[inline(always)]
-            pub(crate) async fn schedule(&self, module_type: &ModuleType, ctx: GatewayContext, pipe_data: &PipeData) -> RResult<GatewayContext> {
+            pub(crate) async fn schedule(&self, module_type: &ModuleType, ctx: &mut GatewayContext, pipe_data: &PipeData) -> RResult<()> {
                 match module_type {
                     $( 
                         ModuleType::$module_type_name => {
@@ -115,7 +115,7 @@ macro_rules! module_initial{
                 }
             }
             $(
-                pub(crate) async fn $module_type_name (&self, ctx: GatewayContext, pipe_data: &PipeData) -> RResult<GatewayContext> {
+                pub(crate) async fn $module_type_name (&self, ctx: &mut GatewayContext, pipe_data: &PipeData) -> RResult<()> {
                     self.$module_name .execute(ctx, pipe_data).await
                 }
             )*
@@ -154,7 +154,7 @@ pub(crate) trait PipeModule: std::fmt::Debug + Send + Sync + Clone {
     fn make_pipe_task(&self, next_task: Option<Box<crate::modules::PipeTask>>, pipe_data: crate::modules::PipeData) -> crate::modules::PipeTask {
         crate::modules::PipeTask { types: self.name(), next_task, pipe_data }
     }
-    async fn execute(&self, ctx: GatewayContext, pipe_data: &PipeData) -> RResult<GatewayContext> ;
+    async fn execute(&self, ctx: &mut GatewayContext, pipe_data: &PipeData) -> RResult<()> ;
 }
 #[derive(Debug)]
 pub(crate) struct PipeTask {
@@ -168,24 +168,24 @@ pub(crate) struct PipeLineEngine {
     pub(crate) module_scheduling: Modules,
 }
 impl PipeLineEngine {
-    pub(crate) async fn execute(&self, mut ctx: GatewayContext) -> RResult<GatewayContext> {
+    pub(crate) async fn execute(&self, ctx: &mut GatewayContext) -> RResult<()> {
         let mut current_task = self.task.as_ref();
         loop {
             // println!("CURRENT_TASK:{:#?}", current_task.types);
             if let ContextType::HttpContext(http_context) = &mut ctx.context_type {
                 if (ctx.prompt_return && http_context.cache_hit) || 
                     http_context.return_context.response.is_some() {
-                    return Ok(ctx);
+                    return Ok(());
                 }
                 match current_task.types {
                     ModuleType::DispatchNetwork | ModuleType::DispatchFile => {
                         if http_context.response_context.is_new() || http_context.cache_hit{
-                            return Ok(ctx);
+                            return Ok(());
                         }
                     }
                     ModuleType::MemorySet | ModuleType::RedisSet => {
                         if http_context.cache_hit {
-                            return Ok(ctx);
+                            return Ok(());
                         }
                     }
                     ModuleType::Return => {
@@ -197,11 +197,11 @@ impl PipeLineEngine {
                     }
                 }
             }
-            ctx = self.module_scheduling.schedule(&current_task.types, ctx, &current_task.pipe_data).await?;
+            self.module_scheduling.schedule(&current_task.types, ctx, &current_task.pipe_data).await?;
             if let Some(next_task) = &current_task.next_task {
                 current_task = next_task.as_ref();
             } else {
-                return Ok(ctx);
+                return Ok(());
             }
         }
         // drop(task_lock);

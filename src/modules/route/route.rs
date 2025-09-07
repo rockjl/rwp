@@ -36,7 +36,7 @@ impl PipeModule for RouteModule {
         ModuleType::Route
     }
     
-    async fn execute(&self, mut ctx: crate::context::GatewayContext, pipe_data: &crate::modules::PipeData) -> RResult<crate::context::GatewayContext>  {
+    async fn execute(&self, ctx: &mut crate::context::GatewayContext, pipe_data: &crate::modules::PipeData) -> RResult<()>  {
         if let PipeData::RouteModuleData { profile } = pipe_data {
             match &mut ctx.context_type {
                 ContextType::HttpContext(http_context) => {
@@ -50,7 +50,7 @@ impl PipeModule for RouteModule {
                                     if self.match_method(request_method, method)
                                         && pattern.is_match(path) {                         //second, match request method and match reqeust path
                                         ctx.route = Some(route_name.clone());
-                                        return Ok(ctx);
+                                        return Ok(());
                                     }
                                 }
                                 In::Ip { ranges, method } => {
@@ -58,7 +58,7 @@ impl PipeModule for RouteModule {
                                     if self.match_method(request_method, method)
                                         &&ranges.check_whitelist(&ip_str) {
                                         ctx.route = Some(route_name.clone());
-                                            return Ok(ctx);
+                                            return Ok(());
                                     }
                                 }
                                 In::IpFile { ranges, method } => {
@@ -66,7 +66,7 @@ impl PipeModule for RouteModule {
                                     if self.match_method(request_method, method)
                                         && ranges.check_whitelist(&ip_str) {
                                         ctx.route = Some(route_name.clone());
-                                            return Ok(ctx);
+                                            return Ok(());
                                     }
                                 }
                             };
@@ -85,14 +85,14 @@ impl PipeModule for RouteModule {
                                     let ip_str = ctx.remote_addr.ip().to_string();
                                     if ranges.check_whitelist(&ip_str) {
                                         ctx.route = Some(route_name.clone());
-                                        return Ok(ctx);
+                                        return Ok(());
                                     }
                                 }
                                 In::IpFile { ranges, method} => {
                                     let ip_str = ctx.remote_addr.ip().to_string();
                                     if ranges.check_whitelist(&ip_str) {
                                         ctx.route = Some(route_name.clone());
-                                        return Ok(ctx);
+                                        return Ok(());
                                     }
                                 }
                             }

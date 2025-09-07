@@ -17,14 +17,14 @@ impl PipeModule for RoundRobinBalancer {
         ModuleType::RoundBorinLB
     }
     
-    async fn execute(&self, ctx: crate::context::GatewayContext, pipe_data: &crate::modules::PipeData) -> RResult<crate::context::GatewayContext>  {
+    async fn execute(&self, ctx: &mut crate::context::GatewayContext, pipe_data: &crate::modules::PipeData) -> RResult<()>  {
         if let PipeData::RoundRobinBalancerData { profile } = pipe_data {
             let mut profile_write_lock = profile.write().await;
-            let (host, port, timeout, prev_index, mut ctx) = profile_write_lock.take_host(ctx).await?;
+            let (host, port, timeout, prev_index) = profile_write_lock.take_host(ctx).await?;
             if port.as_ref() == &0 && prev_index == 0 { // If no available host is found, return directly.
                 ctx.redirect_context.host = None;
                 ctx.redirect_context.port = None;
-                return Ok(ctx);
+                return Ok(());
             }
             if ctx.redirect_context.hosts.is_none() || ctx.redirect_context.permanent_failure.is_none() {
                 ctx.redirect_context.hosts = Some(profile_write_lock.take_hosts());
@@ -39,7 +39,7 @@ impl PipeModule for RoundRobinBalancer {
             } else {
                 ctx.redirect_context.previous_host = Some(prev_index);
             }
-            return Ok(ctx);
+            return Ok(());
         }
         unreachable!()
     }

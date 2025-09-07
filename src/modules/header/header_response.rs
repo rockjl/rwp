@@ -15,7 +15,7 @@ impl PipeModule for HeaderResponse {
         ModuleType::HeaderResponse
     }
     
-    async fn execute(&self, mut ctx: crate::context::GatewayContext, pipe_data: &crate::modules::PipeData) -> RResult<crate::context::GatewayContext>  {
+    async fn execute(&self, ctx: &mut crate::context::GatewayContext, pipe_data: &crate::modules::PipeData) -> RResult<()>  {
         if let PipeData::HeaderResponseData { profile } = pipe_data {
             if let ContextType::HttpContext(http_context) = &mut ctx.context_type {
                 let profile_read_lock = profile.read().await;
@@ -30,7 +30,7 @@ impl PipeModule for HeaderResponse {
                     }
                 }
             }
-            return Ok(ctx);
+            return Ok(());
         }
         unreachable!()
     }

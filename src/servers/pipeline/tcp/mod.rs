@@ -52,8 +52,8 @@ pub(crate) async fn tcp_run(
                                     unreachable!()
                                 }
                                 /* second execute pipe line */
-                                context = match route.pipe_line.pipe_line_engine.execute(context).await {
-                                    Ok(ctx) => { ctx }
+                                match route.pipe_line.pipe_line_engine.execute(&mut context).await {
+                                    Ok(_) => {  }
                                     Err(e) => { 
                                         log::error!("PIPE_LINE_ERROR>{:#?}", e);
                                         stream_write_lock.write_all("not found route".as_bytes()).await.unwrap();

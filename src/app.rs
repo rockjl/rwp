@@ -94,8 +94,14 @@ impl RockGateway {
         let instance = self.gateway_instance.read().unwrap();
         Ok(instance.clone())
     }
-    pub(crate) async fn execute_one_task(&self, ctx: GatewayContext, pipe_task: &PipeTask) -> RResult<GatewayContext> {
-        self.modules.schedule(&pipe_task.types, ctx, &pipe_task.pipe_data).await
+    pub(crate) async fn execute_one_task(&self, mut ctx: GatewayContext, pipe_task: &PipeTask) -> RResult<GatewayContext> {
+        match self.modules.schedule(&pipe_task.types, &mut ctx, &pipe_task.pipe_data).await {
+            Ok(_) => { }
+            Err(e) => { 
+                return Err(e);
+            }
+        }
+        Ok(ctx)
     }
     fn update_runtime(&self) -> RResult<()> {
         let service_lock = self.gateway_instance.read().unwrap();

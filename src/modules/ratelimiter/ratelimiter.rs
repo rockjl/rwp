@@ -25,9 +25,9 @@ impl PipeModule for RatelimiterModule {
         ModuleType::RateLimiter
     }
     
-    async fn execute(&self, mut ctx: crate::context::GatewayContext, pipe_data: &crate::modules::PipeData) -> RResult<crate::context::GatewayContext>  {
+    async fn execute(&self, ctx: &mut crate::context::GatewayContext, pipe_data: &crate::modules::PipeData) -> RResult<()>  {
         if let PipeData::RatelimiterModuleData { profile } = pipe_data {
-            match ctx.context_type {
+            match &mut ctx.context_type {
                 ContextType::HttpContext(ref mut http_context) => {
                     let profile_read_lock = profile.read().await;
                     let check_ret = match &profile_read_lock.ratelimiter.ratelimiter_type {
@@ -56,7 +56,7 @@ impl PipeModule for RatelimiterModule {
                 }
             }
             
-            return Ok(ctx);
+            return Ok(());
         }
         unreachable!()
     }

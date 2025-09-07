@@ -37,11 +37,11 @@ impl LoadBalanceProfile {
     /*
     if weight is not set, the execution effect is equivalent to weight equal to 1.
      */
-    pub(crate) async fn take_host(&mut self, ctx: GatewayContext) -> RResult<(Arc<String>, Arc<u16>, Option<std::time::Duration>, u16, GatewayContext)> {
+    pub(crate) async fn take_host(&mut self, ctx: &mut GatewayContext) -> RResult<(Arc<String>, Arc<u16>, Option<std::time::Duration>, u16)> {
         //if there were no errors in the previous execution, continue to execute downwards.
         let mut map_write_lock = self.hosts.write().await;
         if map_write_lock.len() == 0 {
-            return Ok((Arc::new("".to_string()), Arc::new(0), Some(std::time::Duration::from_millis(0)), 0, ctx));
+            return Ok((Arc::new("".to_string()), Arc::new(0), Some(std::time::Duration::from_millis(0)), 0));
         }
         let index = self.host_index % (map_write_lock.len() as u16);
         let host = map_write_lock.get_mut(&index);
@@ -56,13 +56,13 @@ impl LoadBalanceProfile {
                 h.cur_weight = h.cur_weight + 1;
                 if h.cur_weight % weight == 0 {
                     self.host_index = self.host_index.wrapping_add(1);
-                    return Ok((h.host.clone(), h.port.clone(), h.timeout, index, ctx));
+                    return Ok((h.host.clone(), h.port.clone(), h.timeout, index));
                 } else {
-                    return Ok((h.host.clone(), h.port.clone(), h.timeout, index, ctx));
+                    return Ok((h.host.clone(), h.port.clone(), h.timeout, index));
                 }
             } else {    //if weight is not set, increase the host_index and then take the current value.
                 self.host_index = self.host_index.wrapping_add(1);
-                return Ok((h.host.clone(), h.port.clone(), h.timeout, index, ctx));
+                return Ok((h.host.clone(), h.port.clone(), h.timeout, index));
             }
         } else {
             return Err("dff".into());

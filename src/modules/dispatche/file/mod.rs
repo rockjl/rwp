@@ -30,7 +30,7 @@ impl PipeModule for FileServerDispatche {
         ModuleType::DispatchFile
     }
     
-    async fn execute(&self, mut ctx: GatewayContext, pipe_data: &crate::modules::PipeData) -> RResult<GatewayContext>  {
+    async fn execute(&self, ctx: &mut GatewayContext, pipe_data: &crate::modules::PipeData) -> RResult<()>  {
         if let PipeData::FileServerDispatcheData { profile } = pipe_data {
             let profile_read_lock = profile.read().await;
             if let DispatcheProfile::File { file_system, content_type, } = &*profile_read_lock {
@@ -58,7 +58,7 @@ impl PipeModule for FileServerDispatche {
                         unreachable!()
                     }
                 }
-                return Ok(ctx);
+                return Ok(());
             } else {
                 return Err(gateway_err!(
                     PipeExecuteError,

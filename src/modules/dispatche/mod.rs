@@ -31,22 +31,22 @@ pub(crate) enum DispatcheProfile {
 }
 
 #[inline(always)]
-async fn load_balance(mut ctx: crate::context::GatewayContext, hosts: &crate::instance::hosts::Hosts, pipe_task: &PipeTask) -> crate::error::RResult<crate::context::GatewayContext> {
+async fn load_balance(ctx: &mut crate::context::GatewayContext, hosts: &crate::instance::hosts::Hosts, pipe_task: &PipeTask) -> crate::error::RResult<()> {
     match pipe_task.types {
         super::ModuleType::IpMatchRoundRobinLB => {
-            ctx = hosts.modules.IpMatchRoundRobinLB(ctx, &pipe_task.pipe_data).await?;   // execute load_balance
+            hosts.modules.IpMatchRoundRobinLB(ctx, &pipe_task.pipe_data).await?;   // execute load_balance
         }
         super::ModuleType::RandomLB => {
-            ctx = hosts.modules.RandomLB(ctx, &pipe_task.pipe_data).await?;   // execute load_balance
+            hosts.modules.RandomLB(ctx, &pipe_task.pipe_data).await?;   // execute load_balance
         }
         super::ModuleType::RoundBorinLB => {
-            ctx = hosts.modules.RoundBorinLB(ctx, &pipe_task.pipe_data).await?;   // execute load_balance
+            hosts.modules.RoundBorinLB(ctx, &pipe_task.pipe_data).await?;   // execute load_balance
         }
         _ => {
             return Err(gateway_err!(PipeExecuteError, "Pipe Execute Error Dispatche Network Error > not found load balance.", crate::error::PipeError::new(crate::error::PipeErrorKind::DISPATCHE)));
         }
     }
-    return Ok(ctx);
+    return Ok(());
 }
 
 pub(crate) async fn host_point_exception_handing(

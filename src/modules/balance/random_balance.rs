@@ -17,7 +17,7 @@ impl PipeModule for RandomBalancer {
         ModuleType::RandomLB
     }
     
-    async fn execute(&self, mut ctx: crate::context::GatewayContext, pipe_data: &crate::modules::PipeData) -> RResult<crate::context::GatewayContext>  {
+    async fn execute(&self, ctx: &mut crate::context::GatewayContext, pipe_data: &crate::modules::PipeData) -> RResult<()>  {
         if let PipeData::RandomBalancerData { profile } = pipe_data {
             let profile_read_lock = profile.read().await;
             let (host, port, timeout, prev_index) = {
@@ -25,7 +25,7 @@ impl PipeModule for RandomBalancer {
                 if hosts_read_lock.len() == 0 { // If no available host is found, return directly.
                     ctx.redirect_context.host = None;
                     ctx.redirect_context.port = None;
-                    return Ok(ctx);
+                    return Ok(());
                 }
                 let index = rand::thread_rng().gen_range(0..hosts_read_lock.len()) as u16;
                 let ret = &hosts_read_lock[&index];
@@ -44,7 +44,7 @@ impl PipeModule for RandomBalancer {
             } else {
                 ctx.redirect_context.previous_host = Some(prev_index);
             }
-            return Ok(ctx);
+            return Ok(());
         }
         unreachable!()
     }

@@ -26,7 +26,7 @@ impl PipeModule for MemoryCacheGet {
         ModuleType::MemoryGet
     }
     
-    async fn execute(&self, mut ctx: crate::context::GatewayContext, pipe_data: &crate::modules::PipeData) -> RResult<crate::context::GatewayContext>  {
+    async fn execute(&self, ctx: &mut crate::context::GatewayContext, pipe_data: &crate::modules::PipeData) -> RResult<()>  {
         if let PipeData::MemoryCacheGetData { profile } = pipe_data {
             if let ContextType::HttpContext(http_context) = &mut ctx.context_type {
                 let profile_read_lock = profile.read().await;
@@ -36,7 +36,7 @@ impl PipeModule for MemoryCacheGet {
                 if let Some((key, value)) = cache_lock.get_key_value(&http_cache_key) {
                     if HttpCacheKey::is_expire(key) {
                         cache_lock.remove(&http_cache_key);
-                        return Ok(ctx);
+                        return Ok(());
                     }
                     if profile_read_lock.expire != std::time::Duration::from_millis(0) {
                         *key.expire.borrow_mut() = Some(profile_read_lock.expire);
@@ -72,7 +72,7 @@ impl PipeModule for MemoryCacheGet {
                 }
                 drop(profile_read_lock);
             }
-            return Ok(ctx);
+            return Ok(());
         }
         unreachable!()
     }

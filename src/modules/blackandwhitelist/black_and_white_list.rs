@@ -18,7 +18,7 @@ impl PipeModule for BlackAndWhiteList {
         ModuleType::BlackAndWhiteList
     }
     
-    async fn execute(&self, mut ctx: crate::context::GatewayContext, pipe_data: &crate::modules::PipeData) -> RResult<crate::context::GatewayContext>  {
+    async fn execute(&self, ctx: &mut crate::context::GatewayContext, pipe_data: &crate::modules::PipeData) -> RResult<()>  {
         if let PipeData::BlackAndWhiteListData { profile } = pipe_data {
             match &mut ctx.context_type {
                 ContextType::HttpContext(http_context) => {
@@ -52,7 +52,7 @@ impl PipeModule for BlackAndWhiteList {
                     drop(profile_read_lock);
                 }
             }
-            return Ok(ctx);
+            return Ok(());
         }
         unreachable!()
     }

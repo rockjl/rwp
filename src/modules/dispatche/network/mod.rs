@@ -25,7 +25,7 @@ impl PipeModule for NetworkDispatche {
         ModuleType::DispatchNetwork
     }
     
-    async fn execute(&self, mut ctx: crate::context::GatewayContext, pipe_data: &crate::modules::PipeData) -> RResult<crate::context::GatewayContext>  {
+    async fn execute(&self, ctx: &mut crate::context::GatewayContext, pipe_data: &crate::modules::PipeData) -> RResult<()>  {
         if let PipeData::NetworkDispatcheData { profile } = pipe_data {
             let profile_read_lock = profile.read().await;
             /* first: match whether it is network or file */
@@ -43,7 +43,7 @@ impl PipeModule for NetworkDispatche {
                         };
                         loop {
                             /* third: start routing and selecting the target host through the specified host */
-                            ctx = crate::modules::dispatche::load_balance(ctx, hosts, hosts.lb_task.as_ref()).await?;
+                            crate::modules::dispatche::load_balance(ctx, hosts, hosts.lb_task.as_ref()).await?;
                             if ctx.redirect_context.host.is_none() {// If no available hosts are found, start the error_handling_plan process.
                                 if let ErrModule::HTTP(http_error_handling_plan) = &error_handling_plan.inner {
                                     match http_error_handling_plan.r#return {
@@ -57,7 +57,7 @@ impl PipeModule for NetworkDispatche {
                                                     http_context.response_context.headers = headers;
                                                     http_context.response_context.body = body;
                                                     http_context.response_context.refresh();
-                                                    return Ok(ctx);
+                                                    return Ok(());
                                                 }
                                                 ContextType::TcpContext(_) => {
                                                     unreachable!()
@@ -160,7 +160,7 @@ impl PipeModule for NetworkDispatche {
                                                     }
                                                 }
                                             }
-                                            return Ok(ctx);
+                                            return Ok(());
                                         }
                                         ClientProvider::Https { client_handler } => {
                                             let scheme = "https";
@@ -249,7 +249,7 @@ impl PipeModule for NetworkDispatche {
                                                     }
                                                 }
                                             }
-                                            return Ok(ctx);
+                                            return Ok(());
                                         }
                                         ClientProvider::Tcp { .. } => {
                                             unreachable!()
@@ -282,7 +282,7 @@ impl PipeModule for NetworkDispatche {
                                             let in_tx = tcp_context.in_tx.clone();
                                             let in_rx = tcp_context.in_rx.clone();
                                             let _ = client_handler.send(RequestContent::Tcp((addr, data_buf, sender, in_tx, in_rx)), timeout).await?;
-                                            return Ok(ctx);
+                                            return Ok(());
                                         }
                                     }
                                 }

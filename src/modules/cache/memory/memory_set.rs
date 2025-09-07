@@ -25,7 +25,7 @@ impl PipeModule for MemoryCacheSet {
         ModuleType::MemorySet
     }
     
-    async fn execute(&self, mut ctx: crate::context::GatewayContext, pipe_data: &crate::modules::PipeData) -> RResult<crate::context::GatewayContext>  {
+    async fn execute(&self, ctx: &mut crate::context::GatewayContext, pipe_data: &crate::modules::PipeData) -> RResult<()>  {
         if let PipeData::MemoryCacheSetData { profile } = pipe_data {
             if let ContextType::HttpContext(http_context) = &mut ctx.context_type {
                 let profile_read_lock = profile.read().await;
@@ -55,7 +55,7 @@ impl PipeModule for MemoryCacheSet {
                 drop(cache_lock);
                 drop(profile_read_lock);
             }
-            return Ok(ctx);
+            return Ok(());
         }
         unreachable!()
     }

@@ -50,10 +50,8 @@ pub(crate) async fn http_run(
         Some(route_name) => {
             let route = instance.routes.get(route_name).unwrap();
             /* third execute pipe line */
-            context = match route.pipe_line.pipe_line_engine.execute(context).await {
-                Ok(ctx) => {
-                    ctx
-                }
+            match route.pipe_line.pipe_line_engine.execute(&mut context).await {
+                Ok(_) => {}
                 Err(e) => {
                     match &e {
                         GatewayError::RatelimiterArrival { .. } => {
@@ -78,7 +76,10 @@ pub(crate) async fn http_run(
                 if http_context.return_context.response.is_none() {
                     println!("Immediately return and reorganize the data");
                     // if executed at this point, it is possible that the context was immediately returned. So here, try to reorganize the data and return it.
-                    context = gateway.modules.Return(context, &mut PipeData::ReturnModuleData { profile: tokio::sync::RwLock::new(()) }).await?;
+                    let common_module_lock = gateway.common_module.read().await;
+                    let common_module = common_module_lock.as_ref().unwrap();
+                    let return_pipe_task = common_module.return_pipe_task.as_ref();
+                    context = gateway.execute_one_task(context, return_pipe_task).await?;
                 }
             }
             if let ContextType::HttpContext(mut http_context) = context.context_type {

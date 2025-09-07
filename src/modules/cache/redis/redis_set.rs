@@ -25,7 +25,7 @@ impl PipeModule for RedisCacheSet {
         ModuleType::RedisSet
     }
     
-    async fn execute(&self, mut ctx: crate::context::GatewayContext, pipe_data: &crate::modules::PipeData) -> RResult<crate::context::GatewayContext>  {
+    async fn execute(&self, ctx: &mut crate::context::GatewayContext, pipe_data: &crate::modules::PipeData) -> RResult<()>  {
         if let PipeData::RedisCacheSetData { profile } = pipe_data {
             if let ContextType::HttpContext(http_context) = &mut ctx.context_type {
                 let cell = HttpCacheShared::memory_cache_value(
@@ -46,7 +46,7 @@ impl PipeModule for RedisCacheSet {
                     ).await?;
                 }
             }
-            return Ok(ctx);
+            return Ok(());
         }
         unreachable!()
     }
