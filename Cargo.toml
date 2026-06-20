@@ -20,7 +20,7 @@ split-debuginfo = "packed"
 # run tools
 # monoio = { version = "0.2.0", features = ["async-cancel", "sync", "bytes", "legacy", "macros", "utils", "tokio-compat"]}
 tokio = { version = "1.37.0", features = ["full"] }
-tokio-rustls = { version = "0.26.0", features = ["logging", "tls12"] }
+tokio-rustls = { version = "0.26.4", features = ["logging", "tls12"] }
 tokio-tungstenite = { version = "0.21.0" }
 rustls-pemfile = { version = "2.1.2"}
 hyper = { version = "1.2.0", features = ["full"] }
@@ -75,7 +75,7 @@ jemallocator = "0.5.4"
 #cross compilation
 # openssl = { version = "0.10.64" }
 # aws-lc-rs = { version = "1.7.2"}
-aws-lc-rs = { version = "1.7.2", features = ["bindgen"]}
+aws-lc-rs = "1.17.0"
 # nasm = "0.0.1"
 
 # test

@@ -24,9 +24,14 @@ pub(crate) fn parse_file(file_path: &str) -> RResult<ConfigModel> {
             log::error!("config file not found:{:#?}", e);
         }
     }
-    // let file_name = path.file_name().and_then(OsStr::to_str).unwrap();
     let file_stem = path.file_stem().and_then(OsStr::to_str).unwrap();
     let file_ext = path.extension().and_then(OsStr::to_str).unwrap();
-    let ret: ConfigModel = Parser::from_str(file_stem, Format::ext(file_ext)).unwrap();
+    let parent = path.parent().and_then(|p| p.to_str()).unwrap_or("");
+    let config_name = if parent.is_empty() {
+        file_stem.to_string()
+    } else {
+        format!("{}/{}", parent, file_stem)
+    };
+    let ret: ConfigModel = Parser::from_str(&config_name, Format::ext(file_ext)).unwrap();
     Ok(ret)
 }
