@@ -19,16 +19,16 @@ split-debuginfo = "packed"
 [dependencies]
 # run tools
 # monoio = { version = "0.2.0", features = ["async-cancel", "sync", "bytes", "legacy", "macros", "utils", "tokio-compat"]}
-tokio = { version = "1.37.0", features = ["full"] }
+tokio = { version = "1.44", features = ["full"] }
 tokio-rustls = { version = "0.26.4", features = ["logging", "tls12"] }
 tokio-tungstenite = { version = "0.21.0" }
 rustls-pemfile = { version = "2.1.2"}
-hyper = { version = "1.2.0", features = ["full"] }
-hyper-tls = { version = "0.6.0", features = ["alpn", "vendored"] }
-hyper-util = { version = "0.1.3", features = ["full"] }
-http-body-util = { version = "0.1.1" }
-http = { version = "1.1.0" }
-webpki-roots = { version = "0.26.1" }
+hyper = { version = "1.6", features = ["full"] }
+hyper-rustls = { version = "0.27.9", features = ["webpki-roots", "http2", "tls12", "aws-lc-rs"] }
+hyper-util = { version = "0.1.20", features = ["full"] }
+http-body-util = { version = "0.1.2" }
+http = { version = "1.2" }
+webpki-roots = { version = "1.0" }
 rustls-pki-types = { version = "1.4.1" }
 core_affinity ={ version = "0.8.1" }
 
@@ -51,7 +51,7 @@ serde = { version = "1.0.201", features = ["derive"] }
 serde_json = { version = "*" }
 config = { version = "0.14.0" }
 
-rand = { version = "*" }
+rand = { version = "0.8" }
 # parking_lot = { version = "*" }
 # signal-hook = { version = "*", features = ["iterator", "extended-siginfo"]}
 mime_guess = { version = "2.0.4" }

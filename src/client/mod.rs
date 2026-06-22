@@ -20,7 +20,7 @@ pub mod https;
 pub mod http;
 pub mod tcp;
 
-type HttpsRedirect = hyper_util::client::legacy::Client<hyper_tls::HttpsConnector<hyper_util::client::legacy::connect::HttpConnector>, Full<Bytes>>;
+type HttpsRedirect = hyper_util::client::legacy::Client<hyper_rustls::HttpsConnector<hyper_util::client::legacy::connect::HttpConnector>, Full<Bytes>>;
 
 #[derive(Debug, Clone)]
 pub(crate) enum ClientProvider {
@@ -87,8 +87,13 @@ impl ClientProvider {
         Arc::new(TcpSenderConnection::new(buf_size))
     }
     pub(crate) fn make_https_client() 
-        -> hyper_util::client::legacy::Client<hyper_tls::HttpsConnector<hyper_util::client::legacy::connect::HttpConnector>, Full<Bytes>> {
-        let connection = hyper_tls::HttpsConnector::new();
+        -> hyper_util::client::legacy::Client<hyper_rustls::HttpsConnector<hyper_util::client::legacy::connect::HttpConnector>, Full<Bytes>> {
+        let connection = hyper_rustls::HttpsConnectorBuilder::new()
+            .with_webpki_roots()
+            .https_or_http()
+            .enable_http1()
+            .enable_http2()
+            .build();
         hyper_util::client::legacy::Client::builder(
             crate::servers::tokiort::TokioExecutor::new()
         ).build(connection)
